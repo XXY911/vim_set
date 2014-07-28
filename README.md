@@ -28,9 +28,9 @@ Plugin 'molokai'                      " 配色
 Plugin 'Solarized'                    " 配色
 ```
 
-powerline是一款非常好看的状态栏,它基于python,还有一款叫做airline非常轻量级,但感觉还是每powerline好看一些.
-Molokai和Solarized大名鼎鼎的配色，不多说
-if下边的对齐线是一款叫做indentline的插件，新版的vundle不知道为什么没有找到，可以自己搜索下载
+1. powerline是一款非常好看的状态栏,它基于python,还有一款叫做airline非常轻量级,但感觉还是每powerline好看一些.
+2. Molokai和Solarized大名鼎鼎的配色，不多说
+3. if下边的对齐线是一款叫做indentline的插件，新版的vundle不知道为什么没有找到，可以自己搜索下载
 
 ##2.2　Nerdtree,winmanager,taglist,minibufexpl和ctags
 
@@ -76,7 +76,7 @@ Plugin 'FuzzyFinder'                  " 文件快速查找
 
 推荐等级:４星
 
-![](https://github.com/taizilongxu/vim_set/raw/master/pic/３.gif)
+![](https://github.com/taizilongxu/vim_set/raw/master/pic/3.gif)
 
 ```vim
 Plugin 'SirVer/ultisnips'             " Track the engine.
@@ -92,7 +92,7 @@ Plugin 'honza/vim-snippets'           " Snippets are separated from the engine. 
 
 推荐等级:3星
 
-![](https://github.com/taizilongxu/vim_set/raw/master/pic/４.gif)
+![](https://github.com/taizilongxu/vim_set/raw/master/pic/4.gif)
 图片操作为```vG:Tab /=```，其中的＝可以替换成需要的符号
 
 ```vim
@@ -105,7 +105,7 @@ Plugin 'Tabular'                      " 注释等格式对齐插件
 
 推荐等级:４星
 
-![](https://github.com/taizilongxu/vim_set/raw/master/pic/５.gif)
+![](https://github.com/taizilongxu/vim_set/raw/master/pic/5.gif)
 
 操作```vGgcc```
 
