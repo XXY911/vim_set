@@ -12,7 +12,7 @@ PS1="\[\e[37m\][\[\e[31m\]\u\[\e[37m\]@Pig \t\[\e[35m\]\w #\#\[\e[37m\]]\\$\[\e[
 
 以下配置均在根目录的.vimrc文件中配置,墙裂建议用vundle管理vim插件方便快捷(全部用vundle添加插件)
 vundle地址:https://github.com/gmarik/Vundle.vim
-下面的只做演示，具体配置均在.vimrc文件中
+下面的只做演示，具体配置均在.vimrc文件中,
 
 ##2.1 Powerline和Molokai，Solarized
 
@@ -48,7 +48,7 @@ Plugin 'minibufexpl.vim'              " buffer插件
 Plugin 'ctags.vim'
 ```
 1. 在vim的normal模式下直接按```wm```调出界面
-2. <C + h,j,k,l>可以切换各个分区
+2. ```<C + h,j,k,l>```可以切换各个分区
 3. minibufexpl只能在多个窗口下才显示
 
 ##2.3 FuzzyFinder
