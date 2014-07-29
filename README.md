@@ -155,8 +155,37 @@ Insert mode
 
 括号颜色增强，比较漂亮
 
+推荐等级:3星
+
 ![](https://github.com/taizilongxu/vim_set/raw/master/pic/3.png)
 
 ```vim
-Plugin 'kien/rainbow_parentheses.vim' " 括号增强,彩色
+Plugin 'kien/rainbow_parentheses.vim'               " 括号增强,彩色
 ```
+
+##2.8 mru
+
+历史文件查找
+
+推荐等级:3星
+
+![](https://github.com/taizilongxu/vim_set/raw/master/pic/5.png)
+
+```vim
+Plugin 'mru.vim'                                    " 历史文件
+```
+1. 快捷键映射```,h```
+
+##2.9 trailing-whitespace
+
+行尾部括号高亮显示
+
+![](https://github.com/taizilongxu/vim_set/raw/master/pic/4.png)
+
+推荐等级:3星
+
+```vim
+Plugin 'trailing-whitespace'          " 增加尾部空格的显示 
+```
+
+
