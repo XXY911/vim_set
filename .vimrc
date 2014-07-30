@@ -22,8 +22,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'            " 必须安装
-Plugin 'L9'                           " FuzzyFinder依赖包
-Plugin 'FuzzyFinder'                  " 文件快速查找
+"Plugin 'L9'                           " FuzzyFinder依赖包
+"Plugin 'FuzzyFinder'                  " 文件快速查找
 Plugin 'SirVer/ultisnips'             " Track the engine.
 Plugin 'honza/vim-snippets'           " Snippets are separated from the engine. Add this if you want them: Plugin 'unite.vim'
 Plugin 'vim-powerline'                " 状态栏增强
@@ -45,6 +45,7 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'molokai'                      " 配色
 Plugin 'Solarized'                    " 配色
 Plugin 'Tabular'                      " 注释等格式对齐插件
+Plugin 'ctrlp.vim'                     " 文件查找，同fuzzyfinder
 " Plugin 'bufexplorer.zip' " 打开历史文件 :BufExplorer
 " Plugin 'OmniCppComplete' " c/c++不全
 " Plugin 'Syntastic'       " 语法检查
@@ -58,7 +59,6 @@ filetype plugin indent on    " required
 """"""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme molokai            " 配色方案
 set autowrite                  " 自动保存
-set listchars=tab:>-,trail:-   " tab 显示
 set mouse=a                    " 鼠标支持
 filetype plugin on             " 允许插件
 syntax enable                  " 语法高亮
@@ -75,10 +75,14 @@ set si                         " 只能缩进
 set cindent                    " c/c++风格
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l         " 退格和方向可以换行
-set expandtab
+
+set list                       " tab显示为^I
+set expandtab                  " 用space代替tab
 set smarttab
-set shiftwidth=4
+set shiftwidth=4               " tab宽度
 set tabstop=4                  " tab转化为4个字符
+set softtabstop=4              " 当连续4个空格时作为tab删除
+
 set mouse=n                    " 所有模式使用鼠标
 set pastetoggle=<F9>           " 解决复制粘贴格式混乱问题
 set showmatch                  " 高亮显示匹配的括号
@@ -97,6 +101,19 @@ set fileencodings=utf-8,gbk    " 中文设置
 "set fillchars=vert:\ ,stl:\ ,stlnc:\ " 在被分割的窗口间显示空白，便于阅读
 "filetype plugin indent on   "对齐线
 "map <C-A> ggVG"+y
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" ctrlp
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_map = ',,'
+let g:ctrlp_open_multiple_files = 'v'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git)$',
+  \ 'file': '\v\.(log|jpg|png|jpeg)$',
+  \ }
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -122,9 +139,9 @@ autocmd FileType apache set commentstring=#\ %s
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " FuzzyFinder
 """"""""""""""""""""""""""""""""""""""""""""""""""
-map ,, :FufCoverageFile!<cr>
-let g:fuf_enumeratingLimit = 5000
-let g:fuf_coveragefile_prompt = '=>' "美化为=>
+"map ,, :FufCoverageFile!<cr>
+"let g:fuf_enumeratingLimit = 5000
+"let g:fuf_coveragefile_prompt = '=>' "美化为=>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,35 +184,35 @@ func Setmd()
     call append(line(".")+1,"---")
     call append(line(".")+2,"")
 endfunc
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.html,*.php,*java exec ":call SetTitle()" 
-""定义函数SetTitle，自动插入文件头 
-func SetTitle() 
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.html,*.php,*java exec ":call SetTitle()"
+""定义函数SetTitle，自动插入文件头
+func SetTitle()
     if &filetype=='python'
-        call setline(1, "#---------------------------------import---------------------------------------") 
-        call append(line("."), "") 
-        call append(line(".")+1, "#------------------------------------------------------------------------------") 
-        call append(line(".")+2, "") 
+        call setline(1, "#---------------------------------import---------------------------------------")
+        call append(line("."), "")
+        call append(line(".")+1, "#------------------------------------------------------------------------------")
+        call append(line(".")+2, "")
         call append(line(".")+3, "###############################################################################")
     endif
-    if &filetype=='sh' 
-        call setline(1,"\#########################################################################") 
-        call append(line("."), "\# File Name: ".expand("%")) 
-        call append(line(".")+1, "\# Author: limbo") 
-        call append(line(".")+2, "\# mail: 468137306@qq.com") 
-        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+    if &filetype=='sh'
+        call setline(1,"\#########################################################################")
+        call append(line("."), "\# File Name: ".expand("%"))
+        call append(line(".")+1, "\# Author: limbo")
+        call append(line(".")+2, "\# mail: 468137306@qq.com")
+        call append(line(".")+3, "\# Created Time: ".strftime("%c"))
         call append(line(".")+4, "\# Last changed:  TIMESTAMP")
-        call append(line(".")+5, "\#########################################################################") 
-        call append(line(".")+6, "\#!/bin/bash".expand("%")) 
-        call append(line(".")+7, "") 
+        call append(line(".")+5, "\#########################################################################")
+        call append(line(".")+6, "\#!/bin/bash".expand("%"))
+        call append(line(".")+7, "")
     endif
     if &filetype=='html' || &filetype=='php'
-        call setline(1, "<!--*************************************************************************") 
-        call append(line("."), "      > File Name: ".expand("%")) 
-        call append(line(".")+1, "      > Author: limbo") 
-        call append(line(".")+2, "      > Mail: 468137306@qq.com") 
-        call append(line(".")+3, "      > Created Time: ".strftime("%c")) 
+        call setline(1, "<!--*************************************************************************")
+        call append(line("."), "      > File Name: ".expand("%"))
+        call append(line(".")+1, "      > Author: limbo")
+        call append(line(".")+2, "      > Mail: 468137306@qq.com")
+        call append(line(".")+3, "      > Created Time: ".strftime("%c"))
         call append(line(".")+4, "      > Last changed:  TIMESTAMP")
-        call append(line(".")+5, " ************************************************************************-->") 
+        call append(line(".")+5, " ************************************************************************-->")
         call append(line(".")+6, "")
     endif
     if &filetype=='cpp'
@@ -204,17 +221,17 @@ func SetTitle()
         call append(line(".")+8, "")
     endif
     if &filetype=='c'
-        call setline(1, "/*************************************************************************") 
-        call append(line("."), "      > File Name: ".expand("%")) 
-        call append(line(".")+1, "      > Author: limbo") 
-        call append(line(".")+2, "      > Mail: 468137306@qq.com") 
-        call append(line(".")+3, "      > Created Time: ".strftime("%c")) 
+        call setline(1, "/*************************************************************************")
+        call append(line("."), "      > File Name: ".expand("%"))
+        call append(line(".")+1, "      > Author: limbo")
+        call append(line(".")+2, "      > Mail: 468137306@qq.com")
+        call append(line(".")+3, "      > Created Time: ".strftime("%c"))
         call append(line(".")+4, "      > Last changed:  TIMESTAMP")
-        call append(line(".")+5, " ************************************************************************/") 
+        call append(line(".")+5, " ************************************************************************/")
         call append(line(".")+6, "#include<stdio.h>")
         call append(line(".")+7, "")
-    endif    
-    if &filetype=='php' || &filetype=='html' 
+    endif
+    if &filetype=='php' || &filetype=='html'
         call setline(9,['<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">','<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">','<head>','    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />','    <title></title>','</head>','<body>','</body>','</html>'])
     endif
     if &filetype=='java'
@@ -236,8 +253,8 @@ func! CompileRunGcc()
     elseif &filetype == 'cpp'
         exec "!gcc % -o %<"
         exec "! ./%<"
-    elseif &filetype == 'java' 
-        exec "!javac %" 
+    elseif &filetype == 'java'
+        exec "!javac %"
         exec "!java %<"
     elseif &filetype == 'sh'
         :!./%
@@ -290,7 +307,7 @@ endfunc
 let g:miniBufExplMapWindowNavVim = 1   "<C-h,j,k,l>切换到上下左右的窗口中去
 let g:miniBufExplMapWindowNavArrows = 1  "<C-箭头>箭头切换
 "let g:miniBufExplMapCTabSwitchBufs = 1   "<C-Tab>切换窗口(有冲突)
-"let g:miniBufExplModSelTarget = 1  
+"let g:miniBufExplModSelTarget = 1
 let g:miniBufExplMoreThanOne=0
 "常用操作
 " :e <filename> 打开文件

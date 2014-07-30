@@ -51,7 +51,7 @@ Plugin 'ctags.vim'
 2. ```<C + h,j,k,l>```可以切换各个分区
 3. minibufexpl只能在多个窗口下才显示
 
-##2.3 FuzzyFinder
+##2.3 FuzzyFinder和ctrlp
 
 文件查找插件
 
@@ -69,6 +69,26 @@ Plugin 'FuzzyFinder'                  " 文件快速查找
 2. ```<C + n,p>```上下翻页
 3. 设置的是精确匹配
 4. 查找的是当前目录下的文件
+
+后来发现ctrlp也非常好用，更加智能,所以选择了ctrlp.
+视频地址http://happycasts.net/episodes/64
+
+```vim
+Plugin 'ctrlp.vim'
+```
+
+
+1. ```,,```呼出
+2. 在ctrlp下```<c + d>```切换路径和文件查找
+3. 在ctrlp下```<c + f>```在mru,mru buf和list之间切换
+4. ```<c + j,k>```在列表上移动
+5. ```<c + z>```可以标记选定多个文件，用```<c + o>```打开
+6. ```<c + w + o>```只显示当前窗口
+7. ```<c + v,x>```分别为横向或纵向打开窗口，和现有窗口并存
+8. ```<c + n,p>```历史记录
+9. ```<c + y>```可以创建目录和文件
+10. ```<c + r>```切换到正则表达式匹配
+11. 还有一点值得留意的是ctrlp支持tab补全！！
 
 ##2.4 ultisnips
 
@@ -178,7 +198,7 @@ Plugin 'mru.vim'                                    " 历史文件
 
 ##2.9 trailing-whitespace
 
-行尾部括号高亮显示
+行尾部括号高亮显示,对于有强迫症的人群墙裂推荐
 
 ![](https://github.com/taizilongxu/vim_set/raw/master/pic/4.png)
 
@@ -188,4 +208,8 @@ Plugin 'mru.vim'                                    " 历史文件
 Plugin 'trailing-whitespace'          " 增加尾部空格的显示 
 ```
 
+如果想要去掉所有尾行的空格可以用如下命令：
 
+```vim
+:%s/\s\+$//
+```
