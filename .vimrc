@@ -1,3 +1,4 @@
+"A
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -45,7 +46,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'molokai'                      " 配色
 Plugin 'Solarized'                    " 配色
 Plugin 'Tabular'                      " 注释等格式对齐插件
-Plugin 'ctrlp.vim'                     " 文件查找，同fuzzyfinder
+Plugin 'mru.vim'                      " 历史文件
+Plugin 'ctrlp.vim'
 " Plugin 'bufexplorer.zip' " 打开历史文件 :BufExplorer
 " Plugin 'OmniCppComplete' " c/c++不全
 " Plugin 'Syntastic'       " 语法检查
@@ -59,29 +61,27 @@ filetype plugin indent on    " required
 """"""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme molokai            " 配色方案
 set autowrite                  " 自动保存
+set listchars=tab:>-,trail:-   " tab 显示
 set mouse=a                    " 鼠标支持
 filetype plugin on             " 允许插件
 syntax enable                  " 语法高亮
 set helplang=cn                " 中文文档
-set nu                         " 显示行号
+"set nu                         " 显示行号
 set relativenumber             " 设置相对行号
 set nobackup                   " 从不备份
-set cursorline                 " 突出显示当前行
-set ruler                      " 打开状态栏标尺
+set cursorline                 " 突出显示当前行 set ruler                      " 打开状态栏标尺
 set showcmd                    " 显示命令
 set showmatch                  " 显示匹配的括号
 set ai                         " 自动缩进
 set si                         " 只能缩进
 set cindent                    " c/c++风格
 set backspace=eol,start,indent
-set whichwrap+=<,>,h,l         " 退格和方向可以换行
+"set whichwrap+=<,>,h,l         " 退格和方向可以换行
 
-set list                       " tab显示为^I
-set expandtab                  " 用space代替tab
+set expandtab
 set smarttab
-set shiftwidth=4               " tab宽度
+set shiftwidth=4
 set tabstop=4                  " tab转化为4个字符
-set softtabstop=4              " 当连续4个空格时作为tab删除
 
 set mouse=n                    " 所有模式使用鼠标
 set pastetoggle=<F9>           " 解决复制粘贴格式混乱问题
@@ -89,6 +89,15 @@ set showmatch                  " 高亮显示匹配的括号
 set matchtime=1                " 匹配括号高亮的时间（单位是十分之一秒）
 let &termencoding=&encoding    " 中文设置
 set fileencodings=utf-8,gbk    " 中文设置
+set hlsearch                   " 高亮搜索
+set ignorecase                 " 搜索忽略大小写
+map <F2> :%s/\s\+$//<CR>
+
+"tab切换页面
+set hidden "in order to switch between buffers with unsaved change
+map <s-tab> :bp<cr>
+map <tab> :bn<cr>
+
 " solarized
 "
 "if has('gui_running')
@@ -114,6 +123,13 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git)$',
   \ 'file': '\v\.(log|jpg|png|jpeg)$',
   \ }
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" MRU
+""""""""""""""""""""""""""""""""""""""""""""""""""
+map ,h :MRU<cr>
+let MRU_Max_Entries=50 " 记录条数
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -184,35 +200,35 @@ func Setmd()
     call append(line(".")+1,"---")
     call append(line(".")+2,"")
 endfunc
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.html,*.php,*java exec ":call SetTitle()"
-""定义函数SetTitle，自动插入文件头
-func SetTitle()
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.html,*.php,*java exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
     if &filetype=='python'
-        call setline(1, "#---------------------------------import---------------------------------------")
-        call append(line("."), "")
-        call append(line(".")+1, "#------------------------------------------------------------------------------")
-        call append(line(".")+2, "")
+        call setline(1, "#---------------------------------import---------------------------------------") 
+        call append(line("."), "") 
+        call append(line(".")+1, "#------------------------------------------------------------------------------") 
+        call append(line(".")+2, "") 
         call append(line(".")+3, "###############################################################################")
     endif
-    if &filetype=='sh'
-        call setline(1,"\#########################################################################")
-        call append(line("."), "\# File Name: ".expand("%"))
-        call append(line(".")+1, "\# Author: limbo")
-        call append(line(".")+2, "\# mail: 468137306@qq.com")
-        call append(line(".")+3, "\# Created Time: ".strftime("%c"))
+    if &filetype=='sh' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: limbo") 
+        call append(line(".")+2, "\# mail: 468137306@qq.com") 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
         call append(line(".")+4, "\# Last changed:  TIMESTAMP")
-        call append(line(".")+5, "\#########################################################################")
-        call append(line(".")+6, "\#!/bin/bash".expand("%"))
-        call append(line(".")+7, "")
+        call append(line(".")+5, "\#########################################################################") 
+        call append(line(".")+6, "\#!/bin/bash".expand("%")) 
+        call append(line(".")+7, "") 
     endif
     if &filetype=='html' || &filetype=='php'
-        call setline(1, "<!--*************************************************************************")
-        call append(line("."), "      > File Name: ".expand("%"))
-        call append(line(".")+1, "      > Author: limbo")
-        call append(line(".")+2, "      > Mail: 468137306@qq.com")
-        call append(line(".")+3, "      > Created Time: ".strftime("%c"))
+        call setline(1, "<!--*************************************************************************") 
+        call append(line("."), "      > File Name: ".expand("%")) 
+        call append(line(".")+1, "      > Author: limbo") 
+        call append(line(".")+2, "      > Mail: 468137306@qq.com") 
+        call append(line(".")+3, "      > Created Time: ".strftime("%c")) 
         call append(line(".")+4, "      > Last changed:  TIMESTAMP")
-        call append(line(".")+5, " ************************************************************************-->")
+        call append(line(".")+5, " ************************************************************************-->") 
         call append(line(".")+6, "")
     endif
     if &filetype=='cpp'
@@ -221,17 +237,17 @@ func SetTitle()
         call append(line(".")+8, "")
     endif
     if &filetype=='c'
-        call setline(1, "/*************************************************************************")
-        call append(line("."), "      > File Name: ".expand("%"))
-        call append(line(".")+1, "      > Author: limbo")
-        call append(line(".")+2, "      > Mail: 468137306@qq.com")
-        call append(line(".")+3, "      > Created Time: ".strftime("%c"))
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), "      > File Name: ".expand("%")) 
+        call append(line(".")+1, "      > Author: limbo") 
+        call append(line(".")+2, "      > Mail: 468137306@qq.com") 
+        call append(line(".")+3, "      > Created Time: ".strftime("%c")) 
         call append(line(".")+4, "      > Last changed:  TIMESTAMP")
-        call append(line(".")+5, " ************************************************************************/")
+        call append(line(".")+5, " ************************************************************************/") 
         call append(line(".")+6, "#include<stdio.h>")
         call append(line(".")+7, "")
-    endif
-    if &filetype=='php' || &filetype=='html'
+    endif    
+    if &filetype=='php' || &filetype=='html' 
         call setline(9,['<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">','<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">','<head>','    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />','    <title></title>','</head>','<body>','</body>','</html>'])
     endif
     if &filetype=='java'
@@ -253,8 +269,8 @@ func! CompileRunGcc()
     elseif &filetype == 'cpp'
         exec "!gcc % -o %<"
         exec "! ./%<"
-    elseif &filetype == 'java'
-        exec "!javac %"
+    elseif &filetype == 'java' 
+        exec "!javac %" 
         exec "!java %<"
     elseif &filetype == 'sh'
         :!./%
@@ -296,8 +312,8 @@ endfunc
 " Tag list (ctags) "
 """"""""""""""""""""""""""""""""""""""""""""""""""
 "let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-"let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的
-"let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim
 "let Tlist_Use_Right_Window = 0 "在右侧窗口中显示taglist窗口
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -307,7 +323,7 @@ endfunc
 let g:miniBufExplMapWindowNavVim = 1   "<C-h,j,k,l>切换到上下左右的窗口中去
 let g:miniBufExplMapWindowNavArrows = 1  "<C-箭头>箭头切换
 "let g:miniBufExplMapCTabSwitchBufs = 1   "<C-Tab>切换窗口(有冲突)
-"let g:miniBufExplModSelTarget = 1
+"let g:miniBufExplModSelTarget = 1  
 let g:miniBufExplMoreThanOne=0
 "常用操作
 " :e <filename> 打开文件
