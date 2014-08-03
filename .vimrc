@@ -1,4 +1,3 @@
-"A
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -92,6 +91,7 @@ set fileencodings=utf-8,gbk    " 中文设置
 set hlsearch                   " 高亮搜索
 set ignorecase                 " 搜索忽略大小写
 map <F2> :%s/\s\+$//<CR>
+set foldmethod=indent          " 代码折叠
 
 "tab切换页面
 set hidden "in order to switch between buffers with unsaved change
